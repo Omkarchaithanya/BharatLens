@@ -1,0 +1,8 @@
+{
+  "name": "BharatLens",
+  "description": "A hyperlocal business intelligence app for India. Instantly analyze business signs, detect local languages, and extract product details using AI.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
