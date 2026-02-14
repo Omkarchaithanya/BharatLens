@@ -24,7 +24,7 @@ const App: React.FC = () => {
           const detectedCity = await getCityFromCoords(loc.lat, loc.lng);
           setCity(detectedCity);
         } else if (loc.error) {
-            setCity("Location Unavailable");
+          setCity("Location Unavailable");
         }
       } catch (e) {
         console.error("Location error", e);
@@ -42,7 +42,7 @@ const App: React.FC = () => {
       // Start the analysis concurrently with the UI showing processing
       // We pass the location context to Gemini for better accuracy
       const locationContext = city !== "Locating..." ? city : "India";
-      
+
       // Delay slightly to let the "Agents" UI show up for at least a few seconds for effect
       const [data] = await Promise.all([
         analyzeBusinessImage(base64Image, locationContext),
@@ -72,12 +72,12 @@ const App: React.FC = () => {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-10 px-6 py-4 flex justify-between items-center backdrop-blur-md bg-white/70 border-b border-white/50">
         <div className="flex items-center gap-2">
-           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 via-white to-green-600 flex items-center justify-center shadow-md">
-              <Zap size={18} className="text-gray-800 fill-white" />
-           </div>
-           <h1 className="text-xl font-bold tracking-tight text-gray-900">
-             Bharat<span className="text-orange-600">Lens</span>
-           </h1>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-orange-500 via-white to-green-600 flex items-center justify-center shadow-md">
+            <Zap size={18} className="text-gray-800 fill-white" />
+          </div>
+          <h1 className="text-xl font-bold tracking-tight text-gray-900">
+            Bharat<span className="text-orange-600">Lens</span>
+          </h1>
         </div>
         <div className="flex items-center gap-2 text-sm font-medium text-gray-600 bg-white/80 px-3 py-1.5 rounded-full border border-gray-200 shadow-sm">
           <MapPin size={14} className="text-green-600" />
@@ -87,22 +87,22 @@ const App: React.FC = () => {
 
       {/* Main Content Area */}
       <main className="pt-24 px-4 pb-10 max-w-lg mx-auto min-h-screen flex flex-col">
-        
+
         {stage === AnalysisStage.IDLE && (
           <div className="flex-1 flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in zoom-in duration-500">
-            
+
             <div className="relative">
-               <div className="absolute inset-0 bg-orange-200 rounded-full blur-3xl opacity-30 animate-pulse-ring"></div>
-               <div className="relative w-48 h-48 bg-gradient-to-br from-orange-100 to-green-100 rounded-full flex items-center justify-center border-4 border-white shadow-2xl">
-                  <img 
-                    src="https://picsum.photos/400/400?grayscale" 
-                    alt="Demo" 
-                    className="w-full h-full object-cover rounded-full opacity-50 mix-blend-overlay"
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <Camera size={64} className="text-gray-700 opacity-80" />
-                  </div>
-               </div>
+              <div className="absolute inset-0 bg-orange-200 rounded-full blur-3xl opacity-30 animate-pulse-ring"></div>
+              <div className="relative w-48 h-48 bg-gradient-to-br from-orange-100 to-green-100 rounded-full flex items-center justify-center border-4 border-white shadow-2xl">
+                <img
+                  src="https://picsum.photos/400/400?grayscale"
+                  alt="Demo"
+                  className="w-full h-full object-cover rounded-full opacity-50 mix-blend-overlay"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <Camera size={64} className="text-gray-700 opacity-80" />
+                </div>
+              </div>
             </div>
 
             <div className="space-y-2 max-w-xs">
@@ -110,50 +110,51 @@ const App: React.FC = () => {
                 Scan Local Business
               </h2>
               <p className="text-gray-500 leading-relaxed">
-                Point your camera at any shop board to get instant details, prices, and translations in 
+                Point your camera at any shop board to get instant details, prices, and translations in
                 <span className="font-semibold text-orange-600 mx-1">7+ Indian languages</span>.
               </p>
             </div>
 
-            <button 
+            <button
               onClick={() => setStage(AnalysisStage.CAPTURING)}
               className="w-full py-4 bg-gray-900 text-white rounded-2xl font-bold text-lg shadow-xl shadow-gray-300 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center justify-center gap-3"
             >
               <Camera className="text-orange-400" />
               Open Camera
             </button>
-            
+
             <div className="flex gap-4 text-xs text-gray-400 uppercase tracking-widest">
-               <span>Hindi</span> • <span>Tamil</span> • <span>Kannada</span> • <span>Telugu</span> • <span>More</span>
+              <span>Hindi</span> • <span>Tamil</span> • <span>Kannada</span> • <span>Telugu</span> • <span>More</span>
             </div>
           </div>
         )}
 
         {stage === AnalysisStage.CAPTURING && (
-          <CameraCapture 
-            onCapture={handleCapture} 
-            onClose={() => setStage(AnalysisStage.IDLE)} 
+          <CameraCapture
+            onCapture={handleCapture}
+            onClose={() => setStage(AnalysisStage.IDLE)}
           />
         )}
 
         {stage === AnalysisStage.PROCESSING && (
           <div className="flex-1 flex flex-col items-center justify-center">
-             {/* Show captured image thumbnail */}
-             {capturedImage && (
-               <div className="w-24 h-24 mb-8 rounded-xl overflow-hidden border-4 border-white shadow-lg relative">
-                 <img src={`data:image/jpeg;base64,${capturedImage}`} className="w-full h-full object-cover" alt="Captured" />
-                 <div className="absolute inset-0 bg-black/20" />
-               </div>
-             )}
-             <AgentOrchestrator onComplete={() => {}} />
+            {/* Show captured image thumbnail */}
+            {capturedImage && (
+              <div className="w-24 h-24 mb-8 rounded-xl overflow-hidden border-4 border-white shadow-lg relative">
+                <img src={`data:image/jpeg;base64,${capturedImage}`} className="w-full h-full object-cover" alt="Captured" />
+                <div className="absolute inset-0 bg-black/20" />
+              </div>
+            )}
+            <AgentOrchestrator onComplete={() => { }} />
           </div>
         )}
 
         {stage === AnalysisStage.COMPLETE && analysisResult && (
-          <ResultsView 
-            data={analysisResult} 
+          <ResultsView
+            data={analysisResult}
             onReset={resetApp}
             locationName={city}
+            capturedImage={capturedImage}
           />
         )}
 
@@ -164,7 +165,7 @@ const App: React.FC = () => {
             </div>
             <h3 className="text-xl font-bold text-gray-800 mb-2">Analysis Failed</h3>
             <p className="text-gray-500 mb-6">We couldn't read the image clearly. Please try moving closer to the signboard.</p>
-            <button 
+            <button
               onClick={resetApp}
               className="px-8 py-3 bg-gray-900 text-white rounded-xl font-semibold hover:bg-gray-800"
             >
